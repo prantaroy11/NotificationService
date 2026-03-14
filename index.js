@@ -7,10 +7,14 @@ env.config();
 
 const sendMain=require('./services/email.service');
 
+const TicketRoutes=require('./routes/ticket.routes');
+
 const app=express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+TicketRoutes(app);
 
 
 app.listen(process.env.PORT,async()=>{
