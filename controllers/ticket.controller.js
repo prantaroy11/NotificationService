@@ -18,6 +18,36 @@ const createTicket=async(req,res)=>{
     }
 }   
 
+const getAllTickets=async(req,res)=>{
+    try{
+        const response=await notificationService.getAll();
+        successResponseBody.data=response;
+        successResponseBody.message='Successfully fetched all the tickets';
+        return res.status(STATUS.OK).json(successResponseBody);
+    }catch(err){
+        errorResponseBody.error=err.err;
+        return res.status(STATUS.INTERNAL_SERVER_ERROR).json(errorResponseBody);
+    }
+}
+
+const getTicket=async(req,res)=>{
+    try{
+        const response=await notificationService.getById(req.params.id);
+        successResponseBody.data=response;
+        successResponseBody.message='Successfully fetched the tickets';
+        return res.status(STATUS.OK).json(successResponseBody);
+    }catch(err){
+        if(er.err){
+            errorResponseBody.error=err.err;
+            return res.status(err.code).json(errorResponseBody);
+        }
+        errorResponseBody.error=err.err;
+        return res.status(STATUS.INTERNAL_SERVER_ERROR).json(errorResponseBody);
+    }
+}
+
 module.exports={
-    createTicket
+    createTicket,
+    getAllTickets,
+    getTicket
 }

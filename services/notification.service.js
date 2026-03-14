@@ -21,6 +21,32 @@ const create=async(data)=>{
     }
 }
 
+const getAll=async()=>{
+    try{
+        const response=Ticket.find();
+        return response;
+    }catch(err){
+        throw err;
+    }
+}
+
+const getById=async(id)=>{
+    try{
+        const response=await Ticket.findById(id);
+        if(!response){
+            throw{
+                err:"No ticket found",
+                code:STATUS.NOT_FOUND
+            }
+        }
+        return response;
+    }catch(err){
+        throw err;
+    }
+}
+
 module.exports={
-    create
+    create,
+    getAll,
+    getById
 }
