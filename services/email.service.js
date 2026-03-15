@@ -40,7 +40,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 const sendMail = async (to, subject, content) => {
 
   const response = await resend.emails.send({
-    from: process.env.EMAIL_FROM,
+    from: process.env.EMAIL,
     to: to,
     subject: subject,
     text: content
