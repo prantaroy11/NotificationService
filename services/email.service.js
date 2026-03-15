@@ -4,6 +4,7 @@ const { Resend } = require("resend");
 const mailer=(userId,password)=>{
     return nodemailer.createTransport({
         service:'Gmail',
+        secure: true,
         auth:{
             user:userId,
             pass:password
