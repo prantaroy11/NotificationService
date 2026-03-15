@@ -16,6 +16,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 TicketRoutes(app);
 
+app.get('/',(req,res)=>{
+    res.send('Home page for notification service');
+});
+
 
 app.listen(process.env.PORT,async()=>{
     console.log(`Notification server started at ${process.env.PORT}`);
