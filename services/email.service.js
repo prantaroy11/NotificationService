@@ -22,16 +22,16 @@
 const { Resend } = require('resend');
 
 const mailer = () => {
-    // This automatically grabs the key you just added to Render
-    console.log("API KEY EXACT LENGTH:", process.env.RESEND_API_KEY ? process.env.RESEND_API_KEY.length : "MISSING");
-    console.log("API KEY STARTS WITH:", process.env.RESEND_API_KEY ? process.env.RESEND_API_KEY.substring(0, 3) : "MISSING");
     const resend = new Resend(process.env.RESEND_API_KEY);
 
     return {
         sendMail: async (mailData, callback) => {
             try {
+                // THIS WILL PRINT EXACTLY WHAT RENDER IS USING
+                console.log("--> RENDER IS USING THIS KEY:", process.env.RESEND_API_KEY);
+                
                 const data = await resend.emails.send({
-                    from: 'onboarding@resend.dev', // Resend's testing email address
+                    from: 'onboarding@resend.dev',
                     to: mailData.to, 
                     subject: mailData.subject,
                     text: mailData.text
