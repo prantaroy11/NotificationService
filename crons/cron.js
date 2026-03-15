@@ -1,18 +1,36 @@
 const cron=require('node-cron');
 const Ticket=require('../models/ticketNotification');
-const sendMail=require('../services/email.service');
+const Mailer=require('../services/email.service');
 
-cron.schedule('*/2 * * * *',async()=>{
-    const notificationToBeSent=await Ticket.find({status:'PENDING'});
 
-    notificationToBeSent.forEach(notification=>{
-        const mailData={
-            from:'prantaroy223@gmail.com',
-            to:notification.recepientEmails,
-            subject:notification.subject,
-            text:notification.content
-        }
+const mailerCron=()=>{
+    const mailer=Mailer(process.env.EMAIL,process.env.EMAIL_PASS);
+    cron.schedule('*/2 * * * *',async()=>{
+        console.log("Executing Cron Again");
+        const notificationToBeSent=await Ticket.find({status:'PENDING'});
 
-        sendMail(process.env.EMAIL,process.env.EMAIL_PASS,mailData);
+        notificationToBeSent.forEach(notification=>{
+            const mailData={
+                from:'prantaroy223@gmail.com',
+                to:notification.recepientEmails,
+                subject:notification.subject,
+                text:notification.content
+            }
+
+            mailer.sendMail(mailData,async(err,data)=>{
+                if(err){
+                    console.log(err);
+                }else{
+                    console.log(data);
+                    const savedNotification=await Ticket.findOne({_id:notification._id});
+                    savedNotification.status="SUCCESS";
+                    await savedNotification.save();
+                }
+            });
+        });
     });
-});
+}
+
+module.exports={
+    mailerCron,
+}

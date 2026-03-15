@@ -5,9 +5,9 @@ const mongoose=require('mongoose');
 
 env.config();
 
-const sendMain=require('./services/email.service');
-
 const TicketRoutes=require('./routes/ticket.routes');
+
+const Cron=require('./crons/cron');
 
 const app=express();
 
@@ -20,9 +20,14 @@ TicketRoutes(app);
 app.listen(process.env.PORT,async()=>{
     console.log(`Notification server started at ${process.env.PORT}`);
     try{
-        await mongoose.connect(process.env.DB_URL);
+        if(process.env.NODE_ENV=='production'){
+            await mongoose.connect(process.env.PROD_DB_URL);
+        }else{
+            await mongoose.connect(process.env.DB_URL);
+        }
         console.log("Successfully connected to mongo")
     }catch(err){
-        console.log(err);
+        console.log("No connect made with mongo",err);
     }
+    Cron.mailerCron();
 });

@@ -13,7 +13,7 @@ const create=async(data)=>{
             });
 
             throw{
-                err,
+                err:error,
                 code:STATUS.UNPROCESSABLE_ENTITY
             }
         }
