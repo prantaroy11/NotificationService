@@ -23,6 +23,8 @@ const { Resend } = require('resend');
 
 const mailer = () => {
     // This automatically grabs the key you just added to Render
+    console.log("API KEY EXACT LENGTH:", process.env.RESEND_API_KEY ? process.env.RESEND_API_KEY.length : "MISSING");
+    console.log("API KEY STARTS WITH:", process.env.RESEND_API_KEY ? process.env.RESEND_API_KEY.substring(0, 3) : "MISSING");
     const resend = new Resend(process.env.RESEND_API_KEY);
 
     return {
