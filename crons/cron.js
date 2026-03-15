@@ -5,13 +5,13 @@ const Mailer=require('../services/email.service');
 
 const mailerCron=()=>{
     const mailer=Mailer(process.env.EMAIL,process.env.EMAIL_PASS);
-    cron.schedule('*/2 * * * *',async()=>{
+    cron.schedule('* * * * *',async()=>{
         console.log("Executing Cron Again");
         const notificationToBeSent=await Ticket.find({status:'PENDING'});
 
         notificationToBeSent.forEach(notification=>{
             const mailData={
-                from:'prantaroy223@gmail.com',
+                from:process.env.EMAIL,
                 to:notification.recepientEmails,
                 subject:notification.subject,
                 text:notification.content

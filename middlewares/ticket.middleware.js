@@ -1,7 +1,7 @@
 const {errorResponseBody}=require('../utils/responseBody');
 const {STATUS}=require('../utils/constants');
 
-const verifyTicketNotificationCreateRequest=async(req,resizeBy,next)=>{
+const verifyTicketNotificationCreateRequest=async(req,res,next)=>{
     if(!req.body.subject){
         errorResponseBody.error='No subject given for the email';
         return res.status(STATUS.BAD_REQUEST).json(errorResponseBody);
