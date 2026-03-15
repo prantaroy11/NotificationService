@@ -1,30 +1,52 @@
-const nodemailer=require('nodemailer');
+// const nodemailer=require('nodemailer');
+// const { Resend } = require("resend");
 
-// const mailer=(userId,password)=>{
+// // const mailer=(userId,password)=>{
+// //     return nodemailer.createTransport({
+// //         service:'Gmail',
+// //         auth:{
+// //             user:userId,
+// //             pass:password
+// //         }
+// //     });
+// // }
+
+// const resend = new Resend(process.env.RESEND_API_KEY);
+
+// const mailer = (userId, password) => {
+
 //     return nodemailer.createTransport({
-//         service:'Gmail',
-//         auth:{
-//             user:userId,
-//             pass:password
+
+//         host: "smtp.gmail.com",
+//         port: 587,
+//         secure: false,
+//         requireTLS:true,
+
+//         auth: {
+//             user: userId,
+//             pass: password
 //         }
+
 //     });
-// }
 
-const mailer = (userId, password) => {
+// };
 
-    return nodemailer.createTransport({
+// module.exports=mailer;
 
-        host: "smtp.gmail.com",
-        port: 587,
-        secure: false,
+const { Resend } = require("resend");
 
-        auth: {
-            user: userId,
-            pass: password
-        }
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-    });
+const sendMail = async (to, subject, content) => {
 
+  const response = await resend.emails.send({
+    from: process.env.EMAIL_FROM,
+    to: to,
+    subject: subject,
+    text: content
+  });
+
+  return response;
 };
 
-module.exports=mailer;
+module.exports = sendMail;

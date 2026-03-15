@@ -1,31 +1,59 @@
-const mongoose=require('mongoose');
+// const mongoose=require('mongoose');
 
-const ticketNotificationSchema=new mongoose.Schema({
-    subject:{
-        type:String,
-        required:true
-    },
-    content:{
-        type:String,
-        required:true
-    },
-    recepientEmails:{
-        type:[String],
-        required:true
-    },
-    status:{
-        type:String,
-        default:"PENDING",
-        required:true,
-        enum:{
-            values:["SUCCESS","FAILED","PENDING"],
-            message:"Invalid ticket status"
-        }
+// const ticketNotificationSchema=new mongoose.Schema({
+//     subject:{
+//         type:String,
+//         required:true
+//     },
+//     content:{
+//         type:String,
+//         required:true
+//     },
+//     recepientEmails:{
+//         type:[String],
+//         required:true
+//     },
+//     status:{
+//         type:String,
+//         default:"PENDING",
+//         required:true,
+//         enum:{
+//             values:["SUCCESS","FAILED","PENDING"],
+//             message:"Invalid ticket status"
+//         }
         
-    }
-},{timestamps:true});
+//     }
+// },{timestamps:true});
 
 
-const ticketNotificationModel=mongoose.model('TicketNotification',ticketNotificationSchema);
+// const ticketNotificationModel=mongoose.model('TicketNotification',ticketNotificationSchema);
 
-module.exports=ticketNotificationModel;
+// module.exports=ticketNotificationModel;
+
+
+const mongoose = require("mongoose");
+
+const ticketNotificationSchema = new mongoose.Schema(
+{
+  subject: {
+    type: String,
+    required: true
+  },
+  content: {
+    type: String,
+    required: true
+  },
+  recepientEmails: {
+    type: [String],
+    required: true
+  },
+  status: {
+    type: String,
+    default: "PENDING",
+    enum: ["PENDING", "SUCCESS", "FAILED"]
+  }
+},
+{ timestamps: true }
+);
+
+module.exports = mongoose.model("TicketNotification", ticketNotificationSchema);
