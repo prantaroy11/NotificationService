@@ -7,7 +7,8 @@ const mailer=(userId,password)=>{
         auth:{
             user:userId,
             pass:password
-        }
+        },
+        family: 4
     });
 }
 
