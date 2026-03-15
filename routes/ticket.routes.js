@@ -1,43 +1,19 @@
-// const notificationController=require('../controllers/ticket.controller');
-// const ticketMiddlewares=require('../middlewares/ticket.middleware');
+const notificationController=require('../controllers/ticket.controller');
+const ticketMiddlewares=require('../middlewares/ticket.middleware');
 
-// const routes=(app)=>{
-//     app.post('/notiservice/api/v1/notifications',
-//         ticketMiddlewares.verifyTicketNotificationCreateRequest,
-//         notificationController.createTicket
-//     );
+const routes=(app)=>{
+    app.post('/notiservice/api/v1/notifications',
+        ticketMiddlewares.verifyTicketNotificationCreateRequest,
+        notificationController.createTicket
+    );
 
-//     app.get('/notiservice/api/v1/notifications/:id',
-//         notificationController.getTicket
-//     );
+    app.get('/notiservice/api/v1/notifications/:id',
+        notificationController.getTicket
+    );
 
-//     app.get('/notiservice/api/v1/notifications/',
-//         notificationController.getAllTickets
-//     );
-// }
+    app.get('/notiservice/api/v1/notifications/',
+        notificationController.getAllTickets
+    );
+}
 
-// module.exports=routes;
-
-
-const notificationController = require("../controllers/ticket.controller");
-
-const routes = (app) => {
-
-  app.post(
-    "/notiservice/api/v1/notifications",
-    notificationController.createTicket
-  );
-
-  app.get(
-    "/notiservice/api/v1/notifications/:id",
-    notificationController.getTicket
-  );
-
-  app.get(
-    "/notiservice/api/v1/notifications",
-    notificationController.getAllTickets
-  );
-
-};
-
-module.exports = routes;
+module.exports=routes;
